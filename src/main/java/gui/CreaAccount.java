@@ -41,14 +41,19 @@ public class CreaAccount {
         creaAccountButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                String nomeUtente = utenteTextField.getText();
-                String password = passwordField.getText();
-                controller.creaUtente(nomeUtente, password);
-                JOptionPane.showMessageDialog(null, "Account creato con successo!");
+                try{
+                    String nomeUtente = utenteTextField.getText();
+                    String password = passwordField.getText();
+                    controller.creaUtente(nomeUtente, password);
+                    JOptionPane.showMessageDialog(null, "Account creato con successo!");
 
-                //torna alla pagina di login
-                loginFrame.setVisible(true);
-                creaAccountFrame.setVisible(false);
+                    //torna alla pagina di login
+                    loginFrame.setVisible(true);
+                    creaAccountFrame.setVisible(false);
+                }
+                catch(RuntimeException ex){
+                    JOptionPane.showMessageDialog(null, ex.getMessage(), "Errore", JOptionPane.ERROR_MESSAGE);
+                }
             }
         });
     }

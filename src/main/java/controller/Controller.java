@@ -1,5 +1,7 @@
 package controller;
 
+import exceptions.ExceptionPassword;
+import exceptions.ExceptionUtente;
 import model.Animale;
 import model.Utente;
 import model.Vestito;
@@ -24,16 +26,22 @@ public class Controller {
         listaUtenti.add(utente);
     }
 
-    public void creaUtente(String login, String password){
+    public void creaUtente(String login, String password) throws RuntimeException{
+        if(login.isBlank()) throw new ExceptionUtente("Il campo nome utente è vuoto.");
+        if(password.isBlank()) throw new ExceptionPassword("Il campo password è vuoto.");
         Utente utente = new Utente(login, password);
         aggiungiUtente(utente);
     }
 
     public boolean checkUtente(String utente, String password){
+        if(utente.isBlank()) throw new ExceptionUtente("Il campo nome utente è vuoto.");
+        if(password.isBlank()) throw new ExceptionPassword("Il campo password è vuoto.");
         for(Utente u : listaUtenti){
             if(u.getLogin().equals(utente) && u.getPassword().equals(password)){
                 u.setAccessoEffettuato(true);
                 return true;
+            } else {
+                throw new ExceptionUtente("Utente non trovato.");
             }
         }
         return false;
@@ -58,5 +66,9 @@ public class Controller {
     public ArrayList<Utente> getListaUtenti(){
         return listaUtenti;
     }
+
+    /*public ArrayList<Animale> getListaAnimali(){
+        return utente.
+    }*/
 
 }
