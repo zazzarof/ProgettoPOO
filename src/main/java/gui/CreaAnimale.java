@@ -4,8 +4,11 @@ import controller.Controller;
 import model.Utente;
 
 import javax.swing.*;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 public class CreaAnimale {
     private JRadioButton orsoRadioButton;
@@ -13,6 +16,7 @@ public class CreaAnimale {
     private JRadioButton pinguinoRadioButton;
     private JTextField nomeTextField;
     private JButton okButton;
+    private JLabel goBack;
 
     public CreaAnimale(JFrame frameHome, Controller controller){
         JFrame creaAnimaleFrame = new JFrame("Crea un nuovo animale");
@@ -46,7 +50,20 @@ public class CreaAnimale {
                 }
                 JOptionPane.showMessageDialog(null, "Animale creato con successo.");
 
+                Home.modelloListaAnimali.addElement(controller.getUtenteAttuale().getAnimaliPosseduti().getLast());
+
                 //torna alla home
+                frameHome.setVisible(true);
+                creaAnimaleFrame.setVisible(false);
+            }
+        });
+
+        //gestone pulsante torna alla home
+        goBack.setCursor(new Cursor(Cursor.HAND_CURSOR)); //cambia il cursore quando ci passa sopra
+
+        goBack.addMouseListener(new MouseAdapter(){
+            @Override
+            public void mouseClicked(MouseEvent e){
                 frameHome.setVisible(true);
                 creaAnimaleFrame.setVisible(false);
             }

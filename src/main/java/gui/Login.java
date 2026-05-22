@@ -45,14 +45,18 @@ public class Login {
         login.loginButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                String nomeUtente = login.utenteTextField.getText();
-                String password = login.passwordField.getText();
-                if(controller.checkUtente(nomeUtente, password)){
-                    JOptionPane.showMessageDialog(null, "Accesso effettuato correttamente.");
-                    Home home = new Home(loginFrame, controller);
-                    loginFrame.setVisible(false);
-                } else{
-                    System.out.println("Account non esistente.");
+                try{
+                    String nomeUtente = login.utenteTextField.getText();
+                    String password = login.passwordField.getText();
+                    if(controller.checkUtente(nomeUtente, password)){
+                        JOptionPane.showMessageDialog(null, "Accesso effettuato correttamente.");
+                        Home home = new Home(loginFrame, controller);
+                        loginFrame.setVisible(false);
+                    } else{
+                        System.out.println("Account non esistente.");
+                    }
+                }catch(RuntimeException ex){
+                    JOptionPane.showMessageDialog(null, ex.getMessage(), "Errore", JOptionPane.ERROR_MESSAGE);
                 }
             }
         });
